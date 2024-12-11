@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload and Segmentation</title>
+</head>
+<body>
+    <h1>Upload Gambar untuk Segmentasi</h1>
+
+    <!-- Form untuk upload gambar -->
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept=".tif, .tiff" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    {% if original_image %}
+        <h2>Gambar Asli:</h2>
+        <img src="{{ url_for('send_image', filename=original_image) }}" alt="Original Image" width="400">
+
+        <h2>Hasil Segmentasi:</h2>
+        <img src="{{ url_for('send_image', filename=result_image) }}" alt="Segmented Image" width="400">
+
+        <h3>Latitude: {{ latitude }}</h3>
+        <h3>Longitude: {{ longitude }}</h3>
+    {% endif %}
+</body>
+</html>
