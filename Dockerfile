@@ -3,7 +3,17 @@ FROM python:3.9-slim
 # Set the working directory
 WORKDIR /app
 
-RUN curl https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth ./models/
+# Install required system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    libexpat1 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create the models directory
+RUN mkdir -p ./models/
+
+# Download the model file
+RUN curl -o ./models/sam_vit_b_01ec64.pth https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth
 
 # Copy requirements and install dependencies
 COPY requirements.txt ./
